@@ -1,0 +1,136 @@
+macro=;
+
+/* txtsize 1000 ; */ /* display (text) buffer with 1000 kb of memory */
+
+/* mxram 700; */ /* max ram 700 Mb */
+
+report=; /* report progress dialog is on */
+
+quote 
+ *************************************************************************
+ 
+This script will run a traditional search (RAS+TBR) with 10000 replicates, holding 10 trees per replicate, with memory available for 100.000 trees. Collapsing is off.
+
+If there are multiple trees found, a consensus tree will be produced.Tree files will be generated, in both notations (compact and parenthetical), with general tree file including consensus tree as the last one.
+
+L. R. Prado [2014]
+  
+ ************************************************************************
+;
+ 
+taxname=; /* shows taxon names in trees */
+
+/* xread ; prints matrix */
+
+log LOG_TBR_EqualWeights.out ; /* creates log file */
+
+hold 100000 ; /* holds N trees in memory */
+
+collapse+; /* collapses trees temporarily for consensus calculation */
+
+mult= tbr replic 10000 hold 10;/* tbr search with 10000 replicates (RAS) holding 10 trees per replication */
+
+tsave trees_TBR_EqualWeights.ctf; /* open tree file (compact mode) */
+
+save ; /* saves trees found */
+
+tsave/ ; /* closes tree file */
+
+tsave* trees_TBR_EqualWeights.tre; 
+
+save ; /* saves to tree file (parenthetical notation) */
+
+tsave/ ; /* closes tree file */
+
+if ( ntrees == 0 )
+ quote
+  ************************************************************************   
+  
+  A single tree was found, therefore no consensus is needed. 
+
+  
+  ***********************************************************************;
+
+  length ; /* prints length of tree found */
+  
+  stats ; /* runs macro for tree statistics (CI/RI) */  
+  
+
+  quote 
+  ************************************************************************
+
+  In the next dialog, choose *each character*, and *all trees*, to display complete CI and RI indexes.
+
+
+  ***********************************************************************;
+  wstats ; /* runs macro for complete character statistics (CI/RI characters) */
+
+  svtxt ; /* saves buffer to output */   
+
+  
+  quote
+  ************************************************************************
+  
+  Synapomorphies will appear on the single tree in full screen, which can be saved to a file (.emf) by pressing the M key.
+
+
+  ***********************************************************************;
+  apo ;
+  
+
+else
+ quote
+  ************************************************************************
+  
+  Multiple most parsimonious trees have been found. A consensus tree will be generated. 
+
+  
+  **********************************************************************;
+  
+ nelsen* ; /* generates strict consensus tree and keeps it as the last tree in memory */
+
+ tsave consensus_TBR_EqualWeights.ctf ;
+
+ save/ ; /* saves last to tree file (compact mode) */
+
+ tsave/ ; /* closes tree file */
+
+ tsave* consensus_TBR_EqualWeights.tre ;
+
+ save/ ; /* saves last to tree file (parenthetical notation) */
+
+ tsave/ ; /* closes tree file */
+
+ length ; /* prints length of trees found */
+
+ stats ; /* runs macro for tree statistics (CI/RI) */
+
+ quote 
+  ************************************************************************
+
+  In the next dialog, choose *each character*, and *all trees*, to display complete CI and RI indexes.
+
+
+  ***********************************************************************;
+
+  wstats ; /* runs macro for complete character statistics (CI/RI characters) */
+
+  svtxt ; /* saves buffer to output */ 
+
+
+ quote 
+  ************************************************************************
+
+  Synapomorphies will appear on the consensus tree in full screen, which can be saved to a file (.emf) by pressing the M key.
+
+
+  ***********************************************************************;
+    
+
+  var: lasttree ; 
+ 
+  set lasttree ntrees ;  
+
+  apo 'lasttree' ; end /* sets variable lasttree as last tree in memory (consensus), then displays apomorphies in it */
+
+end

@@ -1,12 +1,12 @@
 # How to calculate Bremer indices in TNT
 ---
 
-*Disclaimer*: These instructions are *not* official. They have been written by Laura Rocha Prado, and developed through documentation reading, lecture attending, and trial and error. They have been tested only in Windows environments. As a rule of thumb, to avoid errors in TNT, make sure your matrix is in the same folder as the `TNT.exe`, and you have extracted all the scripts from the `tnt_scripts.zip` folder there too.
+*Disclaimer*: These instructions are *not* official. They have been written by [Laura Rocha Prado](http://laura.rochaprado.com), and developed through documentation reading, lecture attending, and trial and error. They have been tested only in Windows environments. As a rule of thumb, to avoid errors in TNT, make sure your matrix is in the same folder as the `TNT.exe`, and you have extracted all the scripts from the `tnt_scripts.zip` folder there too.
 
 ## Step-by-step
 
 1. Open your matrix.
-2. Open you .ctf tree file containing your Most Parsimonious Trees (without the consensus).
+2. Open you `.ctf` tree file containing your Most Parsimonious Trees (without the consensus).
 3. Execute the below command sequentially, substituing the parameters:
 ```
 sub N hold 2N*1000; bb=tbr fillonly; unique*;

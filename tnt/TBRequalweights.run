@@ -1,8 +1,8 @@
 macro=;
 
-/* txtsize 1000 ; */ /* display (text) buffer with 1000 kb of memory */
+txtsize 1000 ; /* display (text) buffer with 1000 kb of memory */
 
-/* mxram 700; */ /* max ram 700 Mb */
+mxram 700; /* max ram 700 Mb */
 
 report=; /* report progress dialog is on */
 

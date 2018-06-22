@@ -12,6 +12,7 @@
 sub N hold 2N*1000; bb=tbr fillonly; unique*;
 ```
 where N is the number of extra steps desired.
+
 4. Save the trees found to `.ctf` file.
 5. Save the log to `.out`.
 6. Go to menu option Trees -> Bremmer Support -> Relative.
